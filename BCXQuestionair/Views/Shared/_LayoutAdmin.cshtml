@@ -1,0 +1,114 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>BCX Exam</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
+
+
+    @Styles.Render("~/Content/style.css")
+
+
+    <style>
+
+        /*
+            These styles are admin specific, but this also uses the styles from the questionair template.
+
+            Normally my "admin" and "website" template would use two different style sheets. And I would use something like bootstrap of Tailwindcss.
+
+        */
+        html, body {
+            height: 100%
+        }
+
+
+        #leftNavigation {
+            height: 100%;
+            background: #e21e2a
+        }
+
+        .navigationQuestion {
+            width: 100%;
+            margin-top: 20px;
+            margin-left: 7px
+        }
+
+        .studentAnswers {
+            width: 100%;
+            margin-bottom: 40px
+        }
+
+            .studentAnswers td, .studentAnswers th {
+                padding: 10px 20px;
+            }
+
+            .studentAnswers th {
+                background: #000;
+                color: #fff
+            }
+
+            .studentAnswers td {
+                background: #EBEBEB
+            }
+
+        #mainContent {
+            height: 100%;
+            overflow: scroll
+        }
+
+        .navbar-nav {
+            color: #FFF;
+            padding: 10px 20px;
+            list-style:none;
+            display:flex;
+            float:right
+        }
+
+            .navbar-nav a {
+                padding-right: 20px;
+                text-decoration: none;
+                color: #FFF;
+
+            }
+    </style>
+</head>
+
+<body>
+
+    <nav id="topNavigation">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-4">
+                    <img id="logo" src="/Content/logo.png" />
+                </div>
+                <div class="col-4">
+
+                </div>
+                <div id="adminColumn" class="col-4">
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container-fluid" style="height: calc(100% - 76px); padding-left: 0">
+        <div class="row" style="height: 100%">
+            <div class="col-2" id="leftNavigation">
+                <a href="/Admin/Tests" class="btn btn-secondary navigationQuestion">Student Answers</a>
+                <a href="/Admin/Questions" class="btn btn-secondary navigationQuestion">Questions</a>
+                <a href="/" class="btn btn-secondary navigationQuestion">Preview</a>
+            </div>
+
+            <div class="col-10" id="mainContent">
+
+                @RenderBody()
+
+                
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

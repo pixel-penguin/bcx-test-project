@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<h1>The Questions</h1>
+
+
+<table class="studentAnswers">
+    <tr>
+        <th colspan="4">gerrit@website-genius.com</th>
+    </tr>
+    <tr>
+        <th>Question</th>
+        <th>Type</th>
+        <th>Options</th>
+        <th>Action</th>
+
+    </tr>
+    
+    @foreach (var question in Model)
+    {
+        <tr>
+            <td>@question.QuestionString</td>
+            <td>
+                @question.QuestionType.Name
+            </td>
+            <td>
+                @foreach (var option in question.Options)
+                {
+                <p style="border-radius:5px; background:#FFF; padding:3px 6px">@option.Option</p>
+                }
+
+             </td>
+            <td>
+                <a href="@("/Admin/QuestionDelete/"+question.Id)" class="btn btn-primary">Delete</a>
+            </td>
+        </tr>
+    }
+</table>
+
+<a href="/Admin/QuestionAdd" class="btn btn-primary">Add new Question</a>

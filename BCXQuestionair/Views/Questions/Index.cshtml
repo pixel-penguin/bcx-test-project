@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutWebsite.cshtml";
+}
+
+<h1>The questions we need to know!</h1>
+
+@using (Html.BeginForm("Create", "Questions", FormMethod.Post, new { id = "questionForm" }))
+{
+
+    <div class="questionContainer" id="question0">
+
+        <div class="row">
+            <div class="col-12 questionText">
+                <h2>What is your email address?</h2>
+            </div>
+
+            <div class="col-12 questionInput">
+                <input name="email" id="questionInput0" placeholder="type your email here" type="email" />
+            </div>
+
+            <div class="col-12 questionButton">
+
+                <!--<div onClick="displayPreviousQuestion()" class="btn btn-primary">Go Back</div>-->
+                <div onClick="displayNextQuestion()" class="btn btn-primary">Next Question</div>
+            </div>
+
+
+        </div>
+    </div>
+
+    var questionNumber = 0;
+
+    foreach (var question in Model)
+    {
+
+        questionNumber++;
+
+        var idName = "question" + questionNumber;
+
+        <div class="questionContainer" id="@idName">
+
+            <div class="row">
+                <div class="col-12 questionText">
+                    <h2>@question.QuestionString</h2>
+                </div>
+
+                <div class="col-12 questionInput">
+
+                    <input name="@("questionId" + questionNumber)" value="@(question.Id)" type="hidden" />
+                    @if (question.QuestionType.Id == 1)
+                    {
+                        <input name="@("questionInput" + questionNumber)" id="@("questionInput" + questionNumber)" placeholder="type your answer here" type="text" />
+                    }
+                    else if (question.QuestionType.Id == 2)
+                    {
+                        <select name="@("questionInput"+ questionNumber)" id="@("questionInput" + questionNumber)">
+                            <option value="">Select an Answer</option>
+                            @foreach (var option in question.Options)
+                            {
+                                <option value="@option.Option">@option.Option</option>
+                            }
+                        </select>
+                    }
+
+
+                </div>
+
+                <div class="col-12 questionButton">
+
+                    <div onClick="displayPreviousQuestion()" class="btn btn-primary">Go Back</div>
+                    <div onClick="displayNextQuestion()" class="btn btn-primary">Next Question</div>
+                </div>
+
+
+            </div>
+        </div>
+    }
+
+    <input type="hidden" id="totalQuestions" name="totalQuestions" />
+    <input type="hidden" id="timeSpent" name="timeSpent" value="0" />
+
+    <div id="examEnd" style="text-align:center; display:none">
+        <h1>Sorry man</h1>
+        <p>The exam is done....</p>
+        <p>All you can do now is submit this exam.</p>
+        <p>I feel sorry for you.</p>
+
+        <button type="submit" class="btn btn-primary">Submit this exam and pray</button>
+    </div>
+}

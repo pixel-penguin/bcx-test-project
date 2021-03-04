@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "ExportTestToJson";
+}
+
+
+
+
+<script type="text/javascript">
+
+    var tests = JSON.parse('@Html.Raw(Json.Encode(@Model))');
+</script>

@@ -1,0 +1,200 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>BCX Exam</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
+
+
+    @Styles.Render("~/Content/style.css")
+
+</head>
+
+<body>
+
+    <nav id="topNavigation">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-4">
+                    <img id="logo" src="/Content/logo.png" />
+                </div>
+                <div id="timeLeft" class="col-4">
+                    <h2>Time left: <strong id="timerCountdown"></strong></h2>
+                </div>
+                <div id="adminColumn" class="col-4">
+                    <a href="/Admin/Tests" id="adminButton" class="btn btn-primary">Admin</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container">
+        @RenderBody()
+    </div>
+
+    <script type="text/javascript">
+
+        /* I tried adding this as a js include, but it behaved strangely.
+         * I normally don't clean Javascript like this, as I don't really like the way it operates, for example the variables outside the function that can be manipulated inside a function.
+         * I do know that there is a way to use prototype of Javascript in order to make Javascript more OOP.
+         * I personally prefer to use a framework like VueJs that uses a Virtual Dom and is much more OOP. I've read studies that says VueJs is better than React Native, but how it opperates is very similar.
+         * I would have used jQuery, but it didn't really specify if I should, and normally for a small project like this, I don't like to include huge files with it.
+         * However, since the functions of the javascript was simple, I just proceeded doing it procedural
+        */
+
+        // see which question we're at
+        var questionStep = 0;
+
+        //See how many questions are there
+        var totalQuestions = document.querySelectorAll('.questionContainer').length - 1;
+
+        //passing the total questions to an input field that will be accessed by C# as soon as it get submitted, so that c# will know how many times it should loop to save the answers.
+        document.getElementById('totalQuestions').value = parseInt(totalQuestions);
+
+        //console.log(document.getElementById('totalQuestions').value);
+		//alert(totalQuestions);
+
+        //initially show which question to display on load (which is question 0)
+        displayQuestion();
+
+        //initially star the coundown
+        startTimeCountdown();
+
+
+        function displayQuestion() {
+            var element = document.getElementById('questionInput' + questionStep);
+
+            // if we're at the screen that doesn't have questions, like "Questions/Done" it will not try to manipulate a tag that isn't there
+            if (element != null) {
+                document.getElementById('question' + questionStep).style.display = 'block';                
+            }
+            else {
+                document.getElementById('timeLeft').innerHTML = '';
+            }
+
+		}
+
+        // it goes back to the previous question. If for some reason a back button would appear on the first question, it won't go to question -1
+		function displayPreviousQuestion(){
+			if(questionStep != 0){
+				hideAllQuestions();
+				questionStep--;
+				displayQuestion();
+			}
+		}
+
+        // Go to next question
+        
+		function displayNextQuestion(){
+
+            //Get the tag with value of the input field of the question
+            var element = document.getElementById('questionInput' + questionStep)
+
+            //if element does exist, proceed
+            if (element != null) {
+                // get the value of the input field
+                var questionAnswer = element.value;
+                //if the value is empty, do not proceed to next question
+                if (questionAnswer == null || questionAnswer.length == 0) {
+                    alert('You have to answer the question man.')
+                }
+                //if it's the last question, it will prompt and ask if they want to submit or review their questions
+                else if (questionStep >= totalQuestions) {
+
+                    if (confirm('Are you sure you want to submit? You can go back and review your answers')) {
+                        document.getElementById('questionForm').submit();
+                    }
+
+                }
+                else {
+
+                    //if it's the first step, check whether it's a valid email address
+                    if (questionStep == 0 && !checkEmailValidity(questionAnswer)) {
+                        alert('Something about that email address is a bit off..');
+                    }
+                    // This actually proceeds to the next step
+                    else {
+                        hideAllQuestions(questionAnswer);
+                        questionStep++;
+                        displayQuestion();
+                    }
+
+                }
+            }
+
+
+		}
+
+        //Just a function to hide all questions
+		function hideAllQuestions(){
+			var elements = document.getElementsByClassName('questionContainer');
+
+            //loop through all the divs which class is questionContainer
+			for (var i = 0; i < elements.length; i++){
+				elements[i].style.display = 'none';
+			}
+		}
+
+        //function to start the countodwns
+		function startTimeCountdown(){
+
+            var seconds = 10 * 60;
+            var timeSpent = 0;
+
+            // executes this piece of code each second
+            setInterval(function () {
+
+                //If time is done, execute examDone that will hide all the questions and displays message with submit button
+                if (seconds < 1) {
+                    examDone();
+				}
+                else {
+                    //continues counting down the seconds
+					seconds--;
+                }
+
+                //Calculates the time spent by user
+                timeSpent++;
+                //saves the time spent in an input to send to C# later
+                document.getElementById('timeSpent').value = timeSpent;
+
+                //update the counter on the top of the page
+				updateTime(seconds);
+			},1000);
+		}
+
+        //function to update the time on the top
+		function updateTime(seconds){
+
+            //first get minutes of time left.
+            var minutes = seconds / 60;
+            //round down minutes so that it doesn't display decimals.
+            minutes = Math.floor(minutes);
+            //calculate seconds left by substracting the minutes.
+			var seconds = seconds - (minutes * 60);
+
+            //Update the div to contain the data.
+            //I converted the seconds to a string that is forced to use two characters, so that digits will show 08, 07 instead of 8,7. Othwerwise it looks weird
+            document.getElementById('timerCountdown').innerHTML = minutes + ':' + ("0"+seconds).slice(-2);
+
+		}
+
+        //test the validation of the emails
+		function checkEmailValidity (email) {
+		  return /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/.test(email)
+        }
+
+
+        // Function to hide all questions and dislay message that exam is over.
+        function examDone() {
+
+            hideAllQuestions();
+
+            document.getElementById('examEnd').style.display = 'block';
+        }
+
+    </script>
+</body>
+</html>

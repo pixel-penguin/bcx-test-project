@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<h1>Student Answers</h1>
+
+
+@foreach (var test in Model)
+{
+<table class="studentAnswers">
+    <tr>
+        <th colspan="2">@test.Email</th>
+    </tr>
+    <tr>
+        <th>Question</th>
+        <th>Answer</th>
+    </tr>
+    @foreach (var answer in test.TestAnswers)
+    {
+        <tr>
+            <td>@answer.QuestionText</td>
+            <td>@answer.AnswerText</td>
+        </tr>
+    }
+    <tr>
+        <td>Time Spent</td>
+        <td>
+            @test.TimeinSeconds Seconds
+        </td>        
+    </tr>
+    <tr>
+        <td colspan="2">
+            <a class="btn btn-primary" href="@("/Admin/ExportTestToJson/"+test.Id)">Export to Json</a>
+        </td>
+    </tr>
+</table>
+}

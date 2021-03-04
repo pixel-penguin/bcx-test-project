@@ -1,0 +1,110 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+
+    #questionOptions {
+        padding: 20px;
+        background: #eeeeee;
+        border-radius: 5px;
+        margin: 10px 0;
+    }
+
+    #questionOptions li{ min-height:50px}
+</style>
+
+<h1>Add Questions</h1>
+
+
+@using (Html.BeginForm("CreateQuestion", "Admin", FormMethod.Post, new { id = "questionForm" }))
+{
+    <div class="form-group">
+        <label for="exampleInputEmail1">What is the question?</label>
+        <input required name="QuestionString" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter text here">
+    </div>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">What type of question is this?</label>
+        <select onChange="checkIfQuestionOptions()" name="QuestionType_Id" id="questionType" class="form-control" required>
+            <option value="">Select Question Type</option>
+            @foreach (var questionType in Model)
+            {
+                <option value="@questionType.Id">@questionType.Name</option>
+            }
+        </select>
+    </div>
+
+    <div id="addQuestionContainer" class="form-group">
+        <label for="addQuestion">What are the question options you wish to add?</label>
+        <input type="text" class="form-control" id="addQuestion" placeholder="Enter text here">
+
+        <div onClick="addQuestion()" style="cursor:pointer" class="btn btn-primary">Add Question Option</div>
+
+        <ul id="questionOptions">
+        </ul>
+
+        <input id="questionOptionsInput" type="hidden" name="questionOptionsInput" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+}
+
+<script type="text/javascript">
+
+    var questionOptions = [];
+
+    populateQuestions();
+    checkIfQuestionOptions();
+
+    function checkIfQuestionOptions() {
+        if (document.getElementById('questionType').value == 1) {
+            document.getElementById('addQuestionContainer').style.display = 'none';
+        }
+        else if (document.getElementById('questionType').value == 2) {
+            document.getElementById('addQuestionContainer').style.display = 'block';
+        }
+        else {
+            document.getElementById('addQuestionContainer').style.display = 'none';
+        }
+    }
+
+    function populateQuestions() {
+
+        var includes = '';
+
+
+
+        questionOptions.forEach(function (item, key) {
+            includes += `<li>${item} <div onClick='deleteOption(${key})' style="float:right" class="btn btn-primary">Delete</div></li>`;
+        })
+
+        //alert(includes);
+
+        document.getElementById('questionOptions').innerHTML = includes;
+
+
+        document.getElementById('questionOptionsInput').value = JSON.stringify(questionOptions);
+    }
+
+    function addQuestion() {
+        var questionToAdd = document.getElementById('addQuestion').value;
+
+        if (questionToAdd == "" || questionToAdd == null) {
+            alert('You have to add something. It will be confusing if you leave a blank option');
+        }
+        else {
+            questionOptions.push(questionToAdd);
+            populateQuestions();
+            document.getElementById('addQuestion').value = '';
+        }
+    }
+
+    function deleteOption(e) {
+        questionOptions.splice(e, 1);
+        populateQuestions();
+    }
+
+</script>
