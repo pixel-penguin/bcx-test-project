@@ -29,7 +29,7 @@ However, I did not use this feature a lot. But this is definetaly a great featur
 
 ## HTML Fields
 ### Naming Conventions
-With Laravel the nameing conventions is completely different, and I kept finding myself typing in camelCase. I would assume it's better practice to have the NameFields on the input fields should be the same as on the Model (Database Column Names), however I failed to follow these rules.
+With Laravel the nameing conventions is completely different, and I kept finding myself typing in camelCase. I would assume it's better practice to have the NameFields on the input fields should be the same as on the Model (Database Column Names), however I failed to follow these rules in the html input name fields.
 
 ## Deleting Questions
 Once you click on a question to be deleted, there is no "Are you sure" prompts.
