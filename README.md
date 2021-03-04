@@ -12,7 +12,7 @@ I also created seeds that will populate the database with the relevant data in o
 
 ### Identity
 I added Authentication to the project that uses the standard "Identity". So if you get to the admin that requires authentication, just register a new account and proceed to log in.
-Obviously in a live project it should be that easy, but since this is a test project, I didn't add more functionality to either ban someone from registering or giving a newly registerd person a non-admin role.
+Obviously in a live project it shouldn't be that easy, but since this is a test project, I didn't add more functionality to either ban someone from registering or giving a newly registerd person a non-admin role.
 
 ## Database
 ### Queries
