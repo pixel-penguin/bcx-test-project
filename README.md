@@ -38,7 +38,7 @@ Once you click on a question to be deleted, there is no "Are you sure" prompts.
 ## Questionair CSS
 Normally I use Bootrap or Tailwindcss, however as the project asked to only have a single css file, I didn't include it. I did extract some of the styling from bootstrap and placed them inside my style.css. I tried my best to use a single small css file.
 ## Admin CSS
-I added a second stylesheet called admin.css that will only be used on admin, since it also uses the style.css.
+I added a second stylesheet called admin.css that will only be used on admin, since it also uses the style.css. Normally I would have admin use a seperate css files from the website itself.
 
 ## Overall Experience
 If I would compare ASP.net MVC with a framework like Laravel, I would honestly say that C# really beats Laravel in the overall of the way the logic works, especially how Models and migrations connect with each other. Visual Studio does a great job help guiding you in the right direction. How the model relationshiop works is also truly amazing, but I have to admit, I find Laravel's Eloquent Model query handling a bit more powerful (but that could be since I'm more used to it).
