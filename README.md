@@ -1,4 +1,4 @@
-# BCX Project by Gerrit Vermeulen
+# BCX Interview Project by Gerrit Vermeulen
 
 ## Database
 
