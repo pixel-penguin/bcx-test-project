@@ -23,7 +23,7 @@ However, I did not use this feature a lot. But this is definetaly a great featur
 
 ## HTML Fields
 ### Naming Conventions
-With Laravel the nameing conventions is completely different, and I kep finding myself typing in camelCase. I would assume it's better practice to have the NameFields on the input should be the same as on the Model.
+With Laravel the nameing conventions is completely different, and I kept finding myself typing in camelCase. I would assume it's better practice to have the NameFields on the input fields should be the same as on the Model (Database Column Names), however I failed to follow these rules.
 
 ## Overall Experience
 If I would rate this with a framework like Laravel, I would honestly say that C# really beats Laravel in the overall of the way the logic works, especially how Models and migrations connect with each other. Visual Studio does a great job help guiding you in the right direction. How the model relationshiop works is also truly amazing, but I have to admit, I find Laravel's Eloquent Model query handling a bit more powerful (but that could be since I'm more used to it).
