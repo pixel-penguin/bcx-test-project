@@ -5,6 +5,12 @@
 ### Migrations
 With the database, I normally use code-first (however in Laravel, we mainly just called it migrations). It's much cleaner and especially working on bigger projects, it makes live easier
 
+Not sure if it's done by itself or you have to enable it on your side as well:
+```
+enable-migrations
+update-database
+```
+
 ### Seeding
 I also created seeds that will populate the database with the relevant data in order to proceed.
 
