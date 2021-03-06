@@ -36,7 +36,7 @@ Once you click on a question to be deleted, there is no "Are you sure" prompts.
 
 # CSS and Styling
 ## Questionair CSS
-Normally I use Bootrap or Tailwindcss, however as the project asked to only have a single css file, I didn't include it. I did extract some of the styling from bootstrap and placed them inside my style.css. I tried my best to use a single small css file.
+Normally I use Bootstrap or Tailwindcss, however as the project asked to only have a single css file, I didn't include it. I did extract some of the styling from bootstrap and placed them inside my style.css. I tried my best to use a single small css file.
 ## Admin CSS
 I added a second stylesheet called admin.css that will only be used on admin, since it also uses the style.css. Normally I would have admin use a seperate css files from the website itself.
 
